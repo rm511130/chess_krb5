@@ -1,0 +1,11 @@
+---
+applications:
+- name: chess
+  memory: 30M
+  instances: 3
+  host: chess
+  timeout: 60
+  env:
+    KRB5_CONFIG: /home/vcap/app/krb5.conf
+    KRB5_8451:   https://krb5.apps.192.168.0.98.xip.io/krb5.conf
+
