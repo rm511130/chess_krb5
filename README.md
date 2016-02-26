@@ -1,8 +1,9 @@
 # chess
 Tiny client-side javascript chess game based on the program that won an International Obfuscated C Code Contest
 
-These files are ready to be cf push'ed into a Cloud Foundry environment.
-Inside the manifest.yml file I use two CF Environment Variables.
+# notes
+The files in this repository are ready to be cf push'ed into a Cloud Foundry environment.
+Inside the manifest.yml file I use two CF Environment Variables to exemplify how to set-up a Kerberos aware Cloud Foundry container.
     KRB5_CONFIG: /home/vcap/app/krb5.conf
     KRB5_8451:   https://krb5.apps.192.168.0.98.xip.io/krb5.conf
 KRB5_CONFIG points to the location where the container will place a krb5.conf configuration file.
