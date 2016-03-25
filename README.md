@@ -1,7 +1,7 @@
 # chess
 Tiny client-side javascript chess game based on the program that won an International Obfuscated C Code Contest ... used in this example to show how to Kereberize an App that is running on Pivotal Cloud Foundry
 
-# notes
+# Kerberos Notes
 The files in this repository are ready to be cf push'ed into a Cloud Foundry environment.
 Inside the manifest.yml file I use two CF Environment Variables to exemplify how to set-up a Kerberos aware Cloud Foundry container.
     
@@ -49,6 +49,52 @@ The second file I included in the .profile.d directory performs 8 steps:
 (7) kinit vcap@EXAMPLE.COM -k -t /home/vcap/app/.profile.d/vcap.keytab  ## requests a Ticket Granting Ticket from the Kerberos server
 
 (8) klist  ## Displays the list of currently cached kerberos tickets ... i.e. demonstrates that the App running in PCF has contacted the Kerberos Server and was authenticated.
+
+# How was the vcap.keytab file originally created?
+
+I installed a KDC on a virtual machine in the example.com domain and initialized a Kerberos DB:
+
+[root@secondary ~]# hostname -f
+
+secondary.example.com
+
+[root@secondary ~]# yum -y install krb5-libs krb5-server krb5-workstation  
+
+[root@secondary ~]# kdb5_util create -s  
+
+I started Kerberos and created some necessary users, and then created the vcap.keytab file which I then used as decribed in the sections above.
+
+[root]# /sbin/service krb5kdc start  
+
+[root]# /sbin/service kadmin start 
+
+[root]# kadmin.local -q "addprinc root/admin" 
+
+[root@secondary krb5kdc]# adduser vcap
+
+[root@secondary krb5kdc]# kadmin.local
+
+kadmin.local:  ank vcap
+
+kadmin.local:  ktadd -k /home/vcap/vcap.keytab vcap
+
+kadmin.local:  quit
+
+[root@secondary krb5kdc]# su vcap
+
+[vcap@secondary krb5kdc]$ cd ~
+
+[vcap@secondary ~]$ ls –las | grep keytab
+
+4 -rw-------   1 root root  334 Feb 24 19:19 vcap.keytab
+
+
+
+
+
+
+
+
 
 
 
