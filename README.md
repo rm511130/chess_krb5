@@ -1,4 +1,4 @@
-# chess
+# chess_krb5
 Tiny client-side javascript chess game based on the program that won an International Obfuscated C Code Contest ... used in this example to show how to Kereberize an App that is running on Pivotal Cloud Foundry
 
 # Kerberos Notes
